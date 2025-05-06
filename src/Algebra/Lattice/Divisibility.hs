@@ -44,11 +44,11 @@ newtype Divisibility a = Divisibility { getDivisibility :: a }
            )
 
 instance Applicative Divisibility where
-  pure = return
+  pure = Divisibility
   (<*>) = ap
 
 instance Monad Divisibility where
-  return           = Divisibility
+  return           = pure
   Divisibility x >>= f  = f x
 
 instance NFData a => NFData (Divisibility a) where

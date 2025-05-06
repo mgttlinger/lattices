@@ -18,7 +18,6 @@ import Algebra.Heyting
 import Algebra.Lattice
 import Algebra.PartialOrd
 
-import Control.Applicative          (liftA2)
 import Control.Monad                (ap)
 import Data.Data                    (Data, Typeable)
 import GHC.Generics                 (Generic, Generic1)

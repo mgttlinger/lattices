@@ -49,7 +49,7 @@ import Data.Foldable1        (Foldable1 (..))
 import Data.Functor.Identity (Identity (..))
 import Data.Hashable         (Hashable (..))
 import Data.Proxy            (Proxy (..))
-import Data.Semigroup        (All (..), Any (..), Endo (..), Semigroup (..))
+import Data.Semigroup        (All (..), Any (..), Endo (..))
 import Data.Tagged           (Tagged (..))
 import Data.Universe.Class   (Finite (..), Universe (..))
 import Data.Void             (Void)
@@ -362,7 +362,7 @@ instance Lattice a => Semigroup (Join a) where
 
 instance BoundedJoinSemiLattice a => Monoid (Join a) where
   mempty = Join bottom
-  Join a `mappend` Join b = Join (a \/ b)
+  mappend = (<>)
 
 instance (Eq a, Lattice a) => PO.PartialOrd (Join a) where
   leq (Join a) (Join b) = joinLeq a b
@@ -398,7 +398,7 @@ instance Lattice a => Semigroup (Meet a) where
 
 instance BoundedMeetSemiLattice a => Monoid (Meet a) where
   mempty = Meet top
-  Meet a `mappend` Meet b = Meet (a /\ b)
+  mappend = (<>)
 
 instance (Eq a, Lattice a) => PO.PartialOrd (Meet a) where
   leq (Meet a) (Meet b) = meetLeq a b

@@ -46,11 +46,11 @@ instance Ord a => Ord (Op a) where
   compare (Op a) (Op b) = compare b a
 
 instance Applicative Op where
-  pure = return
+  pure = Op
   (<*>) = ap
 
 instance Monad Op where
-  return      = Op
+  return      = pure
   Op x >>= f  = f x
 
 instance NFData a => NFData (Op a) where

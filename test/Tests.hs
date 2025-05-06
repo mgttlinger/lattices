@@ -10,7 +10,8 @@ import Control.Monad            (ap, guard)
 import Data.Int                 (Int8)
 import Data.List                (genericLength, nub)
 import Data.Maybe               (isJust, listToMaybe)
-import Data.Semigroup           (All, Any, Endo (..), (<>))
+import Data.Kind                (Type)
+import Data.Semigroup           (All, Any, Endo (..))
 import Data.Typeable            (Typeable, typeOf)
 import Data.Universe.Class      (Finite (..), Universe (..))
 import Data.Universe.Helpers    (Natural, Tagged (..))
@@ -56,8 +57,8 @@ import Data.Universe.Instances.Show ()
 import Test.QuickCheck.Instances ()
 
 -- For old GHC to work
-data Proxy (a :: *) = Proxy
-data Proxy1 (a :: * -> *) = Proxy1
+data Proxy (a :: Type) = Proxy
+data Proxy1 (a :: Type -> Type) = Proxy1
 
 main :: IO ()
 main = defaultMain tests
@@ -142,12 +143,12 @@ type OInt8 = O.Ordered Int8
 -- Monad laws
 -------------------------------------------------------------------------------
 
-monadLaws :: forall (m :: * -> *). ( Monad m
-                                   , Arbitrary (m Int)
-                                   , Eq (m Int)
-                                   , Show (m Int)
-                                   , Arbitrary (m (Fun Int Int))
-                                   , Show (m (Fun Int Int)))
+monadLaws :: forall (m :: Type -> Type). ( Monad m
+                                         , Arbitrary (m Int)
+                                         , Eq (m Int)
+                                         , Show (m Int)
+                                         , Arbitrary (m (Fun Int Int))
+                                         , Show (m (Fun Int Int)))
           => String
           -> Proxy1 m
           -> TestTree

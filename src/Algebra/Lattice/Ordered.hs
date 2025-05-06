@@ -46,11 +46,11 @@ newtype Ordered a = Ordered { getOrdered :: a }
            )
 
 instance Applicative Ordered where
-  pure = return
+  pure = Ordered
   (<*>) = ap
 
 instance Monad Ordered where
-  return           = Ordered
+  return           = pure
   Ordered x >>= f  = f x
 
 instance NFData a => NFData (Ordered a) where

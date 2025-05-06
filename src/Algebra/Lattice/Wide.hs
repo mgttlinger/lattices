@@ -52,11 +52,11 @@ data Wide a
            )
 
 instance Applicative Wide where
-  pure = return
+  pure = Middle
   (<*>) = ap
 
 instance Monad Wide where
-  return       = Middle
+  return       = pure
   Top >>= _    = Top
   Bottom >>= _ = Bottom
   Middle x >>= f = f x

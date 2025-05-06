@@ -48,13 +48,13 @@ data Lifted a = Bottom
            )
 
 instance Applicative Lifted where
-  pure = return
+  pure = Lift
   (<*>) = ap
 
 instance Monad Lifted where
-  return        = Lift
-  Bottom >>= _  = Bottom
-  Lift x >>= f  = f x
+  return       = pure
+  Bottom >>= _ = Bottom
+  Lift x >>= f = f x
 
 instance NFData a => NFData (Lifted a) where
   rnf Bottom   = ()

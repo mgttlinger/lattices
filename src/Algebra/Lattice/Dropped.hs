@@ -48,11 +48,11 @@ data Dropped a = Drop a
            )
 
 instance Applicative Dropped where
-  pure = return
+  pure = Drop
   (<*>) = ap
 
 instance Monad Dropped where
-  return        = Drop
+  return        = pure
   Top >>= _     = Top
   Drop x >>= f  = f x
 

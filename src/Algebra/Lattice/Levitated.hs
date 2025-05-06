@@ -50,11 +50,11 @@ data Levitated a = Bottom
            )
 
 instance Applicative Levitated where
-  pure = return
+  pure = Levitate
   (<*>) = ap
 
 instance Monad Levitated where
-  return            = Levitate
+  return            = pure
   Top >>= _         = Top
   Bottom >>= _      = Bottom
   Levitate x >>= f  = f x

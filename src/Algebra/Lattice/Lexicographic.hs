@@ -56,13 +56,13 @@ data Lexicographic k v = Lexicographic !k !v
            )
 
 instance BoundedJoinSemiLattice k => Applicative (Lexicographic k) where
-  pure = return
+  pure = Lexicographic bottom
   (<*>) = ap
 
 -- Essentially the Writer monad.
 instance BoundedJoinSemiLattice k => Monad (Lexicographic k) where
-  return                   =  Lexicographic bottom
-  Lexicographic k v >>= f  =
+  return                  = pure
+  Lexicographic k v >>= f =
     case f v of
       Lexicographic k' v' -> Lexicographic (k \/ k') v'
 
